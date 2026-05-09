@@ -1,0 +1,518 @@
+/* ===== PdfViewer Responsive Styles ===== */
+
+/* Container */
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ===== Top Toolbar ===== */
+.toolbar {
+  padding: 8px 16px;
+  background: #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  color: white;
+  border-bottom: 1px solid #334155;
+  flex-wrap: wrap;
+  z-index: 10;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  min-height: var(--toolbar-height);
+}
+
+.toolbarHidden {
+  transform: translateY(-100%);
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+/* Toolbar buttons */
+.toolbarBtn {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 14px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: var(--touch-target-min);
+  min-width: var(--touch-target-min);
+}
+
+.toolbarBtn:disabled {
+  background: #334155;
+  color: #64748b;
+  cursor: not-allowed;
+}
+
+.toolbarBtn:not(:disabled):hover {
+  background: #2563eb;
+}
+
+.toolbarBtn:not(:disabled):active {
+  transform: scale(0.95);
+}
+
+.zoomBtn {
+  background: #334155;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.2s;
+  min-height: var(--touch-target-min);
+  min-width: var(--touch-target-min);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.zoomBtn:hover {
+  background: #475569;
+}
+
+.zoomBtn:active {
+  transform: scale(0.95);
+}
+
+.fitBtn {
+  background: #334155;
+  color: #94a3b8;
+  border: none;
+  border-radius: 6px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+  transition: all 0.2s;
+  min-height: var(--touch-target-min);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.fitBtn:hover {
+  background: #475569;
+  color: white;
+}
+
+/* Page info text */
+.pageInfo {
+  font-size: 14px;
+  color: #94a3b8;
+  white-space: nowrap;
+}
+
+/* Separator */
+.separator {
+  width: 1px;
+  height: 24px;
+  background: #475569;
+  flex-shrink: 0;
+}
+
+/* Jump to page group */
+.jumpGroup {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.jumpLabel {
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+.jumpInput {
+  width: 56px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  border: 1px solid #475569;
+  background: #0f172a;
+  color: white;
+  font-size: 13px;
+  text-align: center;
+  outline: none;
+  min-height: var(--touch-target-min);
+}
+
+.jumpInput:focus {
+  border-color: #3b82f6;
+}
+
+.jumpBtn {
+  background: #10b981;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 5px 12px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  transition: all 0.2s;
+  min-height: var(--touch-target-min);
+  min-width: var(--touch-target-min);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jumpBtn:hover {
+  background: #059669;
+}
+
+/* Zoom display */
+.zoomDisplay {
+  font-size: 13px;
+  color: #94a3b8;
+  min-width: 40px;
+  text-align: center;
+}
+
+/* ===== Main area ===== */
+.mainArea {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Page display */
+.pageDisplay {
+  flex: 1;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: #0f172a;
+  touch-action: pan-x pan-y;
+  position: relative;
+}
+
+.pageWrapper {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: transform 0.15s ease;
+}
+
+/* ===== Desktop Vertical Dial ===== */
+.dialVertical {
+  width: 56px;
+  background: linear-gradient(180deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  border-left: 1px solid #334155;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: ns-resize;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+  touch-action: none;
+}
+
+.dialLabel {
+  position: absolute;
+  top: 8px;
+  font-size: 9px;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+
+.dialTick {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.dialTickLine {
+  border-radius: 2px;
+  transition: all 0.2s ease;
+}
+
+.dialTickLabel {
+  position: absolute;
+  bottom: -14px;
+  font-size: 10px;
+  color: #3b82f6;
+  font-weight: 700;
+  width: 100%;
+  text-align: center;
+}
+
+.dialTickEdgeLabel {
+  position: absolute;
+  bottom: -12px;
+  font-size: 8px;
+  color: #475569;
+  width: 100%;
+  text-align: center;
+}
+
+.dialScrollHint {
+  position: absolute;
+  bottom: 8px;
+  font-size: 8px;
+  color: #475569;
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* ===== Mobile Horizontal Scrubber ===== */
+.scrubberContainer {
+  display: none;
+  background: #1e293b;
+  border-top: 1px solid #334155;
+  padding: 8px 16px 12px;
+  touch-action: none;
+  user-select: none;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.scrubberTrack {
+  position: relative;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: ew-resize;
+}
+
+.scrubberTicksRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  width: 100%;
+  height: 100%;
+}
+
+.scrubberTick {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  max-width: 24px;
+  height: 100%;
+  position: relative;
+}
+
+.scrubberTickLine {
+  border-radius: 2px;
+  transition: all 0.15s ease;
+}
+
+.scrubberTickNum {
+  font-size: 8px;
+  margin-top: 2px;
+  transition: all 0.15s ease;
+}
+
+.scrubberInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4px;
+}
+
+.scrubberPageDisplay {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.scrubberPageCurrent {
+  color: #3b82f6;
+  font-weight: 700;
+}
+
+.scrubberHint {
+  font-size: 10px;
+  color: #475569;
+}
+
+/* ===== Keyboard shortcut hint ===== */
+.shortcutHint {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(30, 41, 59, 0.85);
+  backdrop-filter: blur(8px);
+  color: #94a3b8;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 11px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  white-space: nowrap;
+  z-index: 5;
+}
+
+.shortcutHintVisible {
+  opacity: 1;
+}
+
+/* ===== Swipe feedback ===== */
+.swipeFeedback {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 32px;
+  color: rgba(59, 130, 246, 0.5);
+  pointer-events: none;
+  z-index: 5;
+  animation: swipePulse 0.3s ease-out;
+}
+
+@keyframes swipePulse {
+  0% { opacity: 0; transform: translateY(-50%) scale(0.5); }
+  50% { opacity: 1; transform: translateY(-50%) scale(1.1); }
+  100% { opacity: 0; transform: translateY(-50%) scale(1); }
+}
+
+/* ===== Button text labels ===== */
+.btnText {
+  display: inline;
+}
+
+/* ===== RESPONSIVE: Tablet (≤1024px) ===== */
+@media (max-width: 1024px) {
+  .toolbar {
+    gap: 0.5rem;
+    padding: 8px 12px;
+  }
+
+  .jumpLabel {
+    display: none;
+  }
+}
+
+/* ===== RESPONSIVE: Mobile (≤768px) ===== */
+@media (max-width: 768px) {
+  .toolbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: auto;
+    border-bottom: none;
+    border-top: 1px solid #334155;
+    padding: 6px 10px;
+    padding-bottom: calc(6px + env(safe-area-inset-bottom, 0px));
+    gap: 6px;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    z-index: 20;
+    min-height: var(--mobile-toolbar-height);
+    background: rgba(30, 41, 59, 0.95);
+    backdrop-filter: blur(12px);
+  }
+
+  .toolbarHidden {
+    transform: translateY(100%);
+    top: auto;
+    bottom: 0;
+  }
+
+  .container {
+    padding-bottom: calc(var(--mobile-toolbar-height) + env(safe-area-inset-bottom, 0px));
+  }
+
+  .btnText {
+    display: none;
+  }
+
+  .separator {
+    display: none;
+  }
+
+  .jumpGroup {
+    display: none;
+  }
+
+  .pageInfo {
+    font-size: 12px;
+    order: 0;
+  }
+
+  .toolbarBtn {
+    padding: 6px 10px;
+    font-size: 16px;
+  }
+
+  .pageDisplay {
+    padding: 1rem;
+  }
+
+  /* Hide vertical dial, show horizontal scrubber */
+  .dialVertical {
+    display: none;
+  }
+
+  .scrubberContainer {
+    display: flex;
+    padding-bottom: calc(8px + var(--mobile-toolbar-height) + env(safe-area-inset-bottom, 0px));
+  }
+
+  .shortcutHint {
+    display: none;
+  }
+
+  .fitBtn {
+    font-size: 10px;
+    padding: 4px 8px;
+  }
+}
+
+/* ===== RESPONSIVE: Small phones (≤480px) ===== */
+@media (max-width: 480px) {
+  .toolbar {
+    padding: 4px 6px;
+    padding-bottom: calc(4px + env(safe-area-inset-bottom, 0px));
+    gap: 4px;
+  }
+
+  .zoomBtn {
+    padding: 4px 8px;
+    font-size: 14px;
+  }
+
+  .zoomDisplay {
+    font-size: 11px;
+    min-width: 32px;
+  }
+
+  .pageDisplay {
+    padding: 0.5rem;
+  }
+}

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Search, UploadCloud, FileBox } from 'lucide-react';
+import { Search, UploadCloud, FileBox, LogOut } from 'lucide-react';
 import styles from './Dashboard.module.css';
 import FileList from './FileList';
 import UploadModal from './UploadModal';
@@ -55,7 +55,7 @@ export default function Dashboard() {
             onClick={() => setUploadModalOpen(true)}
           >
             <UploadCloud size={20} />
-            Upload File
+            <span className={styles.btnLabel}>Upload File</span>
           </button>
 
           <button 
@@ -64,8 +64,10 @@ export default function Dashboard() {
             onClick={async () => {
               await supabase.auth.signOut();
             }}
+            title="Sign Out"
           >
-            Sign Out
+            <LogOut size={20} />
+            <span className={styles.btnLabel}>Sign Out</span>
           </button>
         </div>
       </header>

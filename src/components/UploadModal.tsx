@@ -15,7 +15,7 @@ export default function UploadModal({ onClose, onSuccess }: UploadModalProps) {
   const [isDragActive, setIsDragActive] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  
+
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -31,7 +31,7 @@ export default function UploadModal({ onClose, onSuccess }: UploadModalProps) {
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     setIsDragActive(false);
-    
+
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
       validateAndSetFile(e.dataTransfer.files[0]);
     }
@@ -45,7 +45,7 @@ export default function UploadModal({ onClose, onSuccess }: UploadModalProps) {
 
   const validateAndSetFile = (selectedFile: File) => {
     setError(null);
-    
+
     // Validate size (e.g., max 50MB)
     const MAX_SIZE = 50 * 1024 * 1024;
     if (selectedFile.size > MAX_SIZE) {
@@ -58,14 +58,14 @@ export default function UploadModal({ onClose, onSuccess }: UploadModalProps) {
 
   const handleUpload = async () => {
     if (!file) return;
-    
+
     setIsUploading(true);
     setError(null);
 
     try {
       // 1. Upload to Storage
       const { path, error: uploadError } = await uploadToStorage(file);
-      
+
       if (uploadError || !path) {
         throw new Error(uploadError?.message || 'Failed to upload to storage');
       }
@@ -98,11 +98,11 @@ export default function UploadModal({ onClose, onSuccess }: UploadModalProps) {
         <button className={styles.closeBtn} onClick={onClose} disabled={isUploading}>
           <X size={24} />
         </button>
-        
+
         <h2 className={styles.title}>Upload Document</h2>
-        
+
         {!file ? (
-          <div 
+          <div
             className={`${styles.dropzone} ${isDragActive ? styles.active : ''}`}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
@@ -111,13 +111,13 @@ export default function UploadModal({ onClose, onSuccess }: UploadModalProps) {
           >
             <UploadCloud size={48} className={styles.uploadIcon} />
             <p className={styles.dropText}>Click or drag file to this area to upload</p>
-            <p className={styles.supportText}>Supports PDF, DOCX, XLSX, PPTX, TXT, Images</p>
-            <input 
-              type="file" 
-              className={styles.fileInput} 
+            <p className={styles.supportText}>Supports PDF, DOCX, XLSX, PPTX, TXT, Images, Notebooks, Audio, Video</p>
+            <input
+              type="file"
+              className={styles.fileInput}
               ref={fileInputRef}
               onChange={handleFileChange}
-              accept=".pdf,.docx,.xlsx,.pptx,.txt,image/*"
+              accept=".pdf,.docx,.xlsx,.pptx,.txt,image,.ipynb,.mp3,.mp4/*"
             />
           </div>
         ) : (
@@ -156,15 +156,15 @@ export default function UploadModal({ onClose, onSuccess }: UploadModalProps) {
         )}
 
         <div className={styles.footer}>
-          <button 
-            className={styles.cancelBtn} 
+          <button
+            className={styles.cancelBtn}
             onClick={onClose}
             disabled={isUploading}
           >
             Cancel
           </button>
-          <button 
-            className={styles.uploadBtn} 
+          <button
+            className={styles.uploadBtn}
             onClick={handleUpload}
             disabled={!file || isUploading}
           >

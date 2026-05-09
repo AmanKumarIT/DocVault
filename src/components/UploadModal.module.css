@@ -189,3 +189,79 @@
   font-size: 0.875rem;
   color: var(--text-secondary);
 }
+
+/* ===== Mobile (≤768px): Bottom Sheet Style ===== */
+@media (max-width: 768px) {
+  .overlay {
+    align-items: flex-end;
+  }
+
+  .modal {
+    width: 100%;
+    max-width: 100%;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    padding: 1.5rem;
+    padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: slideUpMobile 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @keyframes slideUpMobile {
+    from {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .title {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .dropzone {
+    padding: 2rem 1.5rem;
+  }
+
+  .dropText {
+    font-size: 0.9rem;
+  }
+
+  .supportText {
+    font-size: 0.8rem;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .cancelBtn,
+  .uploadBtn {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+  }
+
+  .uploadBtn {
+    order: -1; /* Upload button first on mobile */
+  }
+}
+
+/* ===== Small phones (≤480px) ===== */
+@media (max-width: 480px) {
+  .modal {
+    padding: 1rem;
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  .dropzone {
+    padding: 1.5rem 1rem;
+  }
+}
