@@ -463,7 +463,7 @@ export default function PdfViewer({ url }: PdfViewerProps) {
       </div>
 
       {/* Mobile: Horizontal scrubber */}
-      {numPages > 1 && (
+      {/* {numPages > 1 && (
         <div
           ref={scrubberRef}
           className={styles.scrubberContainer}
@@ -519,8 +519,8 @@ export default function PdfViewer({ url }: PdfViewerProps) {
             </span>
             <span className={styles.scrubberHint}>◀ Drag ▶</span>
           </div>
-        </div>
-      )}
+        </div> */}
+      {/* )} */}
     </div>
   );
 }
